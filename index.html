@@ -15,7 +15,7 @@
 </style>
 </head>
 <body>
-<div class="app"><header class="header"><div><div class="header-title">오늘의 날씨</div><div class="header-sub">어제 미국 증시 날씨 · 봉차트 · 현재가 · 펀더멘탈 · 뉴스 요약 · 평단가 판단</div></div><div class="badge" id="statusBadge">연결 확인 중</div></header><div class="weather" id="marketWeather"><h2>AI 개요 <span id="weatherDate" style="font-size:12px;color:var(--muted);font-weight:600"></span></h2><div style="color:var(--muted);font-size:13px">어제 미국 증시 날씨를 불러오는 중...</div></div><div class="main-grid"><div class="card"><div class="card-title">종목 분석</div><div class="row"><div class="ticker-wrap"><input id="ticker" placeholder="티커 입력: TSLA, AAPL, NVDA" autocomplete="off"><button class="fav-btn" id="favToggle">☆</button></div><select id="style"><option value="balanced">균형 분석</option><option value="risk">위험 중심</option><option value="buycheck">추가매수 체크</option></select><select id="period"><option value="1">1일</option><option value="7">1주</option><option value="30">1개월</option><option value="90">3개월</option><option value="180" selected>6개월</option><option value="365">1년</option></select><select id="resolution"><option value="D" selected>일봉</option><option value="60">60분봉</option><option value="15">15분봉</option><option value="5">5분봉</option></select><button id="analyzeBtn">분석하기</button></div><div class="quick" id="quickFavs"></div><div class="avg-row"><label>내 평단가</label><input id="avgPrice" type="number" min="0" step="0.01" placeholder="예: 250.50"><button class="btn-ghost" id="saveAvg">저장</button><button class="btn-ghost" id="clearAvg">삭제</button></div><div class="proxy"><details><summary>프록시 서버 설정</summary><div class="proxy-inner"><input id="proxyUrl" placeholder="Cloudflare Worker URL"><button class="btn-ghost" id="saveProxy">저장</button><button class="btn-ghost" id="clearProxy">초기화</button></div></details></div></div><div class="card side-card"><div><div class="card-title">관심종목</div><div id="favList" style="color:var(--muted);font-size:13px">아직 즐겨찾기가 없습니다.</div></div><div><div class="card-title">상태</div><div style="font-size:12px;color:var(--muted);line-height:1.7">실시간 데이터는 프록시 서버를 통해 수집됩니다.<br>투자 조언이 아닌 리스크 점검용입니다.<br>투자 조언은 노을에게 물어보세요ㅎㅅㅎ.</div><div id="testPanel" style="margin-top:8px;font-size:12px;color:var(--muted)"></div></div></div><div class="result-area" id="resultArea"><div class="empty"><div><div style="font-size:36px;opacity:.5">CHART</div><b>분석을 시작하세요</b><br>티커를 입력하고 분석하기를 눌러주세요</div></div></div></div></div>
+<div class="app"><header class="header"><div><div class="header-title">오늘의 날씨</div><div class="header-sub">어제 미국 증시 날씨 · 봉차트 · 현재가 · 펀더멘탈 · 뉴스 요약 · 평단가 판단</div></div><div class="badge" id="statusBadge">연결 확인 중</div></header><div class="weather" id="marketWeather"><h2>AI 개요 <span id="weatherDate" style="font-size:12px;color:var(--muted);font-weight:600"></span></h2><div style="color:var(--muted);font-size:13px">어제 미국 증시 날씨를 불러오는 중...</div></div><div class="main-grid"><div class="card"><div class="card-title">종목 분석</div><div class="row"><div class="ticker-wrap"><input id="ticker" placeholder="티커 입력: TSLA, AAPL, NVDA" autocomplete="off"><button class="fav-btn" id="favToggle">☆</button></div><select id="style"><option value="balanced">균형 분석</option><option value="risk">위험 중심</option><option value="buycheck">추가매수 체크</option></select><select id="period"><option value="1">1일</option><option value="7">1주</option><option value="30">1개월</option><option value="90">3개월</option><option value="180" selected>6개월</option><option value="365">1년</option></select><select id="resolution"><option value="D" selected>일봉</option><option value="60">60분봉</option><option value="15">15분봉</option><option value="5">5분봉</option></select><button id="analyzeBtn">분석하기</button></div><div class="quick" id="quickFavs"></div><div class="avg-row"><label>내 평단가</label><input id="avgPrice" type="number" min="0" step="0.01" placeholder="예: 250.50"><button class="btn-ghost" id="saveAvg">저장</button><button class="btn-ghost" id="clearAvg">삭제</button></div><div class="proxy"><details><summary>프록시 서버 설정</summary><div class="proxy-inner"><input id="proxyUrl" placeholder="Cloudflare Worker URL"><button class="btn-ghost" id="saveProxy">저장</button><button class="btn-ghost" id="clearProxy">초기화</button></div></details></div></div><div class="card side-card"><div><div class="card-title">관심종목</div><div id="favList" style="color:var(--muted);font-size:13px">아직 즐겨찾기가 없습니다.</div></div><div><div class="card-title">상태</div><div style="font-size:12px;color:var(--muted);line-height:1.7">실시간 데이터는 프록시 서버를 통해 수집됩니다.<br>투자 조언이 아닌 리스크 점검용입니다.</div><div id="testPanel" style="margin-top:8px;font-size:12px;color:var(--muted)"></div></div></div><div class="result-area" id="resultArea"><div class="empty"><div><div style="font-size:36px;opacity:.5">CHART</div><b>분석을 시작하세요</b><br>티커를 입력하고 분석하기를 눌러주세요</div></div></div></div></div>
 <script>
 (function(){
 'use strict';
@@ -80,49 +80,62 @@ const hasFund=f.per!=null||f.roe!=null||f.eps!=null||f.opm!=null;
 const hasAvg=avg!=null&&pnl!=null;
 const pnlAbs=hasAvg?Math.abs(pnl).toFixed(1):null;
 const recover=hasAvg&&current<avg?((avg-current)/Math.max(current,0.0001)*100).toFixed(1):null;
-const maPos=[]
+const maPos=[];
 if(st.ma20)maPos.push('MA20('+money(st.ma20)+') '+(current>st.ma20?'위':'아래'));
 if(st.ma60)maPos.push('MA60('+money(st.ma60)+') '+(current>st.ma60?'위':'아래'));
 if(st.ma120)maPos.push('MA120('+money(st.ma120)+') '+(current>st.ma120?'위':'아래'));
 const sections=style==='risk'?'핵심 판단:, 차트 해석:, 리스크 체크:, 평단가 분석:, 대응:, AI 개인 의견:':style==='buycheck'?'핵심 판단:, 차트 해석:, 추가매수 판단:, 평단가 분석:, 대응:, AI 개인 의견:':'핵심 판단:, 차트 해석:, 펀더멘탈 해석:, 평단가 분석:, 종합 의견:, AI 개인 의견:';
-
-return [
-'너는 월가 10년 경력 수석 애널리스트다. 데이터를 읽어주는 게 아니라 해석하고 판단을 내려야 함. 한국어로만. 마크다운 금지.',
-'',
-'[핵심 원칙]',
-'- 데이터 나열 절대 금지. 수치는 근거로만 사용하고 그 수치가 의미하는 바를 해석할 것.',
-'- "MA20 위에 있음" 같은 단순 서술 금지. "MA20 위이지만 MA60 아래라 중기 반등 시도가 저항에 막히는 국면" 처럼 맥락으로 해석할 것.',
-'- 각 섹션은 반드시 완결된 문장으로 끝낼 것. 절대 잘리지 말 것.',
-'- 출력 섹션(순서대로, 빠짐없이): '+sections,
-'',
-'[종목 수치 - 해석 근거로만 사용]',
-sym+' / 현재가 '+money(current)+' / 전일 '+pct(+quote.dp||0)+' / 점수 '+score+'/100 / 위험 '+(risk==='high'?'고위험':risk==='low'?'저위험':'중간'),
-'추세: '+(st.trend||'-')+' / 이평선 위치: '+( maPos.length?maPos.join(', '):'데이터 없음'),
-'거래량 배율: '+(st.volRatio?st.volRatio.toFixed(2)+'x (평균 대비)':'-')+' / 고점 낙폭(20봉): '+pct(st.drawdown||0),
-'지지 '+money(sr.support1)+'/'+money(sr.support2)+' / 저항 '+money(sr.resistance1)+'/'+money(sr.resistance2),
-hasFund?'펀더멘탈: PER '+(f.per!=null?f.per.toFixed(1):'-')+' / ROE '+(f.roe!=null?f.roe.toFixed(1)+'%':'-')+' / EPS '+(f.eps!=null?f.eps.toFixed(2):'-')+' / 영업이익률 '+(f.opm!=null?f.opm.toFixed(1)+'%':'-'):'펀더멘탈: 데이터 제한',
-hasAvg?'평단 '+money(avg)+' / 손익 '+pct(pnl)+(pnl>=0?' (수익)':' (손실)'+(recover?' / 회복까지 +'+recover+'%':''))+' / 평단 이평선 대비: MA20 '+(st.ma20?avg>st.ma20?'위':'아래':'-')+' MA60 '+(st.ma60?avg>st.ma60?'위':'아래':'-'):'평단: 미입력',
-'',
-'[섹션별 작성 기준]',
-style==='risk'?
-'리스크 체크: 지금 이 종목의 진짜 위험이 뭔지 꼬집어서 말할 것. "변동성 있음"같은 말 금지. 어떤 조건이 충족되면 손실이 확대되는지, 현재 차트에서 무너지면 안 되는 선이 어디인지 구체적으로.'
-:style==='buycheck'?
-'추가매수 판단: 지금 평단 대비 손익 상황에서 추가매수가 합리적인지 아닌지 결론부터 말할 것. 어떤 조건이 되면 추가매수할 수 있는지 수치 기준으로.'
-:'종합 의견: 차트 흐름과 펀더멘탈이 지금 이 구간에서 같은 방향을 가리키는지 다른 방향인지 판단할 것. 단기·중기 방향성 결론을 명확히.',
-'',
-'[AI 개인 의견 작성 기준 - 가장 중요]',
-'말투: ~음. ~임. ~있음. ~보임. ~권장함. 으로 통일.',
-'분량: 반드시 5문장 이상.',
-'형식: 결론 먼저, 근거 나중. 첫 문장에서 "지금 이 종목을 어떻게 해야 하는지" 입장을 명확히 밝힐 것.',
-'내용: ① 현재 차트 구조에서 이 종목이 어떤 국면인지 판단 (단순 추세 말고 지지/저항/이평선 배열이 만드는 국면) ② 펀더멘탈이 지금 가격을 정당화하는지 ③ 평단 보유자라면 지금 구체적으로 어떻게 해야 하는지 (수치 기준 포함) ④ 신규 진입자라면 어떤 조건에서 들어가면 되는지.',
-hasAvg?'평단 보유자 대응: 현재 손익 '+pct(pnl)+'. '+(pnl<-15?'손실이 깊음. 추가매수보다 손실 제한이 우선. 2차 지지 '+money(sr.support2)+' 이탈 시 비중 축소 기준으로 삼을 것을 권장.':pnl<-5?'손실권. 평단 회복까지 +'+recover+'% 필요. MA20 '+money(st.ma20||0)+' 회복 못 하면 물타기 금지.':pnl<5?'평단 근접. 추세 방향 확정 전 비중 유지. '+money(sr.resistance1)+' 돌파 시 익절 일부 검토.':pnl<15?'수익권. MA20 이탈 시 일부 익절 또는 손절선 상향 권장.':'수익 '+pnlAbs+'% 이상. 분할 익절 구간. 고점 추격 자제.'):'신규 진입자: 이평선 배열과 지지선 확인 후 진입 타이밍을 잡을 것. 추격매수보다 눌림 대기 권장.'
-].join(NL)
+const symU=sym.toUpperCase();
+const sectorHint=
+  ['IONQ','RGTI','QUBT','QBTS','QTUM','IQM','QUERA'].includes(symU)?'양자컴퓨터 테마주. 뉴스 모멘텀·정부 계약·경쟁사 발표에 주가가 극단적으로 반응하며, 펀더멘탈보다 내러티브가 단기 주가를 지배함. 영업이익이 적자여도 모멘텀으로 움직이는 구간이 많음.':
+  ['RKLB','SPCE','RDW','MNTS','ASTR','ASTS','LUNR'].includes(symU)?'우주·뉴스페이스 테마주. 발사 성공·계약 수주·NASA/DoD 수주 뉴스가 단기 주가를 지배하며 적자 기업이 많아 모멘텀 장세에서 급등·급락이 반복됨. RKLB은 중소형 로켓과 우주선 플랫폼을 동시에 키우는 구조로 수주 모멘텀이 핵심임.':
+  ['LMT','RTX','NOC','GD','BA','HII','KTOS','RCAT','JOBY'].includes(symU)?'방산·항공우주. 지정학 긴장도·국방 예산·수주 잔고가 핵심 변수임. 금리 하락기에 배당 매력도 부각되는 섹터임.':
+  ['NVDA','AMD','INTC','AVGO','QCOM','MU','AMAT','LRCX','SMCI','ARM','ASML','TSM'].includes(symU)?'반도체. AI 수요·재고 사이클·미국 수출 규제가 핵심 변수임. 실적 가이던스와 데이터센터 수요가 단기 방향을 결정함.':
+  ['TSLA'].includes(symU)?'전기차/AI 테슬라. 차량 인도량·마진 압박·머스크 리스크·로보택시 일정이 핵심 변수임.':
+  ['RIVN','LCID','NIO','XPEV','LI'].includes(symU)?'전기차 스타트업. 생산량 성장·현금 소진 속도·보조금 정책이 생존을 결정하는 핵심 변수임.':
+  ['AAPL','MSFT','GOOGL','GOOG','META','AMZN'].includes(symU)?'빅테크. AI 투자 대비 수익화 속도, 광고·클라우드 성장률이 핵심이며 현재 시장 주도 섹터임.':
+  ['PLTR','AI','BBAI','SOUN','CARM','GFAI'].includes(symU)?'AI 소프트웨어/방산. 정부 계약 규모와 상업화 매출 성장이 핵심 모멘텀임.':
+  ['NFLX','DIS','WBD','PARA'].includes(symU)?'미디어·스트리밍. 구독자 성장률·광고 수익 전환·콘텐츠 투자 대비 수익이 핵심임.':
+  ['JPM','BAC','GS','MS','WFC','C'].includes(symU)?'대형 금융. 금리 환경·대출 마진·신용 손실이 핵심이며 연준 정책 방향에 직결됨.':
+  ['BABA','PDD','JD','BIDU'].includes(symU)?'중국 주식. 규제 리스크·소비 경기·미중 관계가 핵심 변수이며 디리스킹 흐름에 취약함.':
+  ['MSTR','COIN','MARA','CLSK','RIOT','HUT'].includes(symU)?'크립토 연동주. 비트코인 가격과 시장 리스크 온/오프가 주가를 지배하며 변동성이 매우 큼.':
+  ['XOM','CVX','COP','SLB','OXY'].includes(symU)?'에너지/오일. 유가 흐름·OPEC 정책·달러 강세 여부가 핵심 변수임.':
+  ['UNH','JNJ','LLY','PFE','MRK','ABBV'].includes(symU)?'헬스케어/제약. 임상 결과·FDA 승인·약가 정책·특허 만료가 핵심 이벤트임.':
+  '';
+const pnlGuide=hasAvg
+  ?(pnl<-15?'손실 '+pnlAbs+'%, 평단 회복까지 +'+recover+'% 필요. 추가매수보다 2차 지지('+money(sr.support2)+') 이탈 여부 먼저 확인.'
+  :pnl<-5?'손실 '+pnlAbs+'%, 회복까지 +'+recover+'% 필요. MA20('+money(st.ma20||0)+') 못 넘으면 추가매수 금지.'
+  :pnl<5?'평단 근접 구간. '+money(sr.resistance1)+' 돌파 여부가 수익 전환 분기점.'
+  :pnl<15?'수익 '+pnlAbs+'%. MA20 이탈 시 익절 일부 고려 구간.'
+  :'수익 '+pnlAbs+'% 이상. 분할 익절 구간, 고점 추격 자제.')
+  :'';
+return '너는 월가 수석 애널리스트다. 아래 종목을 분석해서 한국어 리포트를 작성해라. 마크다운 금지.'+NL+
+'[출력 규칙]'+NL+
+'- 섹션(순서대로, 빠짐없이): '+sections+NL+
+'- 각 섹션은 반드시 완결된 문장으로 끝낼 것. "보" "나타내는 것으로" 처럼 미완성 문장 절대 금지.'+NL+
+'- 섹션 간 내용 중복 금지. 한 섹션에서 쓴 결론을 다른 섹션에서 그대로 반복하지 말 것.'+NL+
+'- 수치 나열 금지. 수치가 만들어내는 시장 국면을 해석할 것.'+NL+
+'  [나쁜 예] "MA20 위, MA60 아래임" [좋은 예] "단기 매수세는 살아있지만 중기 저항권 진입으로 추가 상승 동력이 약해지는 구간임"'+NL+NL+
+'[종목 데이터]'+NL+
+sym+' | 현재가 '+money(current)+' | 전일 '+pct(+quote.dp||0)+' | 점수 '+score+'/100 | '+(risk==='high'?'고위험':risk==='low'?'저위험':'중간 위험')+NL+
+(sectorHint?'섹터 특성: '+sectorHint+NL:'')+
+'추세: '+(st.trend||'-')+' | 이평선: '+(maPos.length?maPos.join(', '):'없음')+NL+
+'거래량 배율: '+(st.volRatio?st.volRatio.toFixed(2)+'x':'-')+' | 고점 낙폭(20봉): '+pct(st.drawdown||0)+NL+
+'지지 '+money(sr.support1)+' / '+money(sr.support2)+' | 저항 '+money(sr.resistance1)+' / '+money(sr.resistance2)+NL+
+(hasFund?'PER '+(f.per!=null?f.per.toFixed(1):'-')+' | ROE '+(f.roe!=null?f.roe.toFixed(1)+'%':'-')+' | EPS '+(f.eps!=null?f.eps.toFixed(2):'-')+' | 영업이익률 '+(f.opm!=null?f.opm.toFixed(1)+'%':'-'):'펀더멘탈 데이터 없음')+NL+
+(hasAvg?'평단 '+money(avg)+' | 손익 '+pct(pnl)+(pnl>=0?' (수익)':' (손실)'+(recover?' | 회복까지 +'+recover+'%':''))+' | 평단↔MA20 '+(st.ma20?avg>st.ma20?'평단위':'평단아래':'-')+' / MA60 '+(st.ma60?avg>st.ma60?'평단위':'평단아래':'-'):'평단: 미입력')+NL+NL+
+'[AI 개인 의견 작성법]'+NL+
+'말투: ~음. ~임. ~있음. ~보임. 으로 통일. "~입니다" "~합니다" "~할 수 있다" "~판단하기 어렵다" 절대 금지.'+NL+
+'구조: 첫 문장=지금 이 종목에 대한 명확한 입장(보유 유지 / 신규 매수 대기 / 비중 축소 중 하나), 이후=차트 국면+펀더멘탈+섹터 맥락 근거, 마지막=구체적 수치 기준 행동.'+NL+
+(sectorHint?'섹터 반영 필수: 이 종목이 속한 "'+sectorHint.split('.')[0]+'" 섹터의 현재 시장 흐름·뉴스 모멘텀·리스크를 AI 개인 의견에 구체적으로 언급할 것.'+NL:'')+
+(hasAvg&&pnlGuide?'평단 반영 필수: 현재 "'+pnlGuide+'" 상황이므로 이에 맞는 실전 대응 기준을 AI 개인 의견에 수치와 함께 명시할 것.'+NL:'')+
+'5문장 이상으로 작성.'
 }
 async function getAiModeAnalysis(sym,style,st,current,score,risk,avg,pnl,fund,quote){try{const ai=await proxyJson('/ai-summary',{text:buildModePrompt(sym,style,st,current,score,risk,avg,pnl,fund,quote),max_tokens:2000,ts:Date.now()});const s=polishModeText(ai&&ai.summary?ai.summary:'');if(isBadAiSummary(s)||hasCjkHan(s))throw new Error('bad ai');return s}catch(e){return 'AI분석모드에 실패하여 임시요약합니다. 잠시 후 다시 시도해보세요.'+NL+NL+fallbackModeAnalysis(style,st,current,score,risk,avg,pnl,fund)}}
 function renderWeather(){
 const box=$('marketWeather');
 const now=new Date(),yy=String(now.getFullYear()).slice(-2),mm=String(now.getMonth()+1).padStart(2,'0'),dd=String(now.getDate()).padStart(2,'0');
-const cacheKey='market_ai_overview_v6_'+yy+mm+dd;
+const cacheKey='market_ai_overview_v7_'+yy+mm+dd;
 box.innerHTML='<h2>AI 개요 <span style="font-size:12px;color:var(--muted);font-weight:600">('+yy+'/'+mm+'/'+dd+')</span></h2><div style="color:var(--muted);font-size:13px">미국 증시 데이터를 확인하는 중...</div>';
 Promise.all([
 fetchCandles('SPY',30,'D'),
@@ -157,16 +170,20 @@ const cached=load(cacheKey);
 if(cached){paint(cached,'오늘 캐시');return}
 paint(fallback,'임시 요약');
 if(window.__analysisBusy)return;
-const prompt='너는 월가 수석 애널리스트다. 아래 데이터를 바탕으로 한국 투자자용 미국 증시 리포트를 작성해줘. 한국어로만. 마크다운 표 금지.'+NL+
-'[출력 규칙] 아래 6개 섹션 전부 완결해서 출력. 절대 중간에 잘리지 말 것. 각 섹션 제목은 정확히 이 문구로 사용:'+NL+
-'1. 주요 지수 마감 현황 / 2. 핵심 상승/하락 요인(거시 경제 포함) / 3. 특징주 및 시장 흐름 / 4. 거래량 / 5. 오늘 체크해둬야할 3~5가지 / 6. AI 개인 종합 의견'+NL+
-'1~5번 각 2~3줄, 6번 4~6줄. 6번은: 어떤 섹터가 지금 모멘텀 있는지, 어떤 섹터는 진입 자제해야 하는지, 단기 전략을 수치 근거로 명확히. "투자에 유의하세요" 같은 공허한 경고 금지.'+NL+NL+
+const prompt='너는 월가 수석 애널리스트다. 한국 투자자용 미국 증시 일일 리포트를 작성해라. 한국어로만. 마크다운 표 금지.'+NL+
+'[출력 규칙]'+NL+
+'- 아래 6개 섹션 전부 완결된 문장으로 출력. 문장이 중간에 끊기거나 "보" "나타내는 것으로" 처럼 미완성으로 끝나는 문장 절대 금지.'+NL+
+'- 각 섹션 간 내용 중복 금지. 한 번 언급한 내용은 다른 섹션에서 반복하지 말 것.'+NL+
+'- 섹션 제목은 정확히 이 문구로: 1. 주요 지수 마감 현황 / 2. 핵심 상승/하락 요인(거시 경제 포함) / 3. 특징주 및 시장 흐름 / 4. 거래량 / 5. 오늘 체크해둬야할 3~5가지 / 6. AI 개인 종합 의견'+NL+
+'- 1번: 지수 등락 수치와 전체 방향성. 2번: 등락의 진짜 원인(연준·고용·물가·지정학)만. 3번: 주도 섹터 vs 소외 섹터 구분. 4번: 거래량이 추세를 지지하는지 판단. 5번: 내일을 위한 체크포인트. 6번: 4~6줄 애널리스트 판단.'+NL+
+'- 6번은 지금 어떤 섹터에 모멘텀이 있고 어디를 피해야 하는지 명확한 의견. "주의하세요" "유의하세요" 같은 공허한 경고 절대 금지. 구체적 섹터명과 이유로 마무리할 것.'+NL+NL+
 '[시장 데이터] '+yy+'/'+mm+'/'+dd+NL+
-'S&P500: '+pct(spy.dayChange||0)+' 추세='+( spy.trend||'혼조')+' 거래량='+volText+NL+
-'나스닥: '+pct(qqq.dayChange||0)+' 추세='+(qqq.trend||'혼조')+' '+qqqMaText+NL+
-'다우: '+pct(dia.dayChange||0)+' 추세='+(dia.trend||'혼조')+NL+
-'반도체: '+pct(soxx.dayChange||0)+' 추세='+(soxx.trend||'제한')+NL+
-'변동성(VIXY): '+pct(vixy.dayChange||0)+' / 가장 큰 움직임: '+strongest.n+' '+pct(strongest.v)+' / 날씨: '+mood[0];
+'S&P500: '+pct(spy.dayChange||0)+' / 추세='+( spy.trend||'혼조')+' / 거래량='+volText+NL+
+'나스닥: '+pct(qqq.dayChange||0)+' / 추세='+(qqq.trend||'혼조')+' / '+qqqMaText+NL+
+'다우: '+pct(dia.dayChange||0)+' / 추세='+(dia.trend||'혼조')+NL+
+'반도체(SOXX): '+pct(soxx.dayChange||0)+' / 추세='+(soxx.trend||'데이터 제한')+NL+
+'변동성(VIXY): '+pct(vixy.dayChange||0)+' / 가장 큰 움직임: '+strongest.n+' '+pct(strongest.v)+' / 시장 날씨: '+mood[0]+NL+
+'(네가 알고 있는 최신 거시 지식과 섹터 흐름을 적극 활용해서 분석에 반영할 것)';
 setTimeout(()=>{
 if(window.__analysisBusy||load(cacheKey))return;
 callAiSummary(prompt,2000).then(aiText=>{if(aiText&&!isBadAiSummary(aiText)){store(cacheKey,aiText);paint(aiText,'AI 생성')}}).catch(()=>{})
